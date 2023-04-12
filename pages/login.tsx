@@ -13,6 +13,7 @@ const LoginPage = () => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data: LoginMail) => {
+    console.log('dataaaaaaaaaaaaaaaa',data)
     const res = await postData(`${server}/api/login`, {
       email: data.email,
       password: data.password
