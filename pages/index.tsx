@@ -3,8 +3,22 @@ import PageIntro from '../components/page-intro';
 import ProductsFeatured from '../components/products-featured';
 import Footer from '../components/footer';
 import Subscribe from '../components/subscribe';
+import { useLayoutEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { actionLoginByToken } from 'store/user/actions';
 
 const IndexPage = () => {
+  const dispatch = useDispatch();
+  useLayoutEffect(() => {
+    (async () => {
+      if (localStorage.getItem("token")) {
+       const res = await dispatch(actionLoginByToken());
+        if (!res) {
+          window.location.reload();
+        }
+      }
+    })();
+  }, []);
   return (
     <Layout>
       <PageIntro />

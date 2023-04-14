@@ -20,7 +20,9 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef(null);
   const searchRef = useRef(null);
+  const dataInfo = useSelector((state:RootState) => state.userInfoReducer);
 
+  console.log('dataaaaaaneeeeeeeeeeeeee',dataInfo)
   const headerClass = () => {
     if(window.pageYOffset === 0) {
       setOnTop(true);
@@ -91,6 +93,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
             className="site-header__btn-menu">
             <i className="btn-hamburger"><span></span></i>
           </button>
+          {dataInfo?.dataUser && <div><p>{dataInfo?.dataUser?.first_name + dataInfo?.dataUser?.last_name}</p></div>}
         </div>
       </div>
     </header>

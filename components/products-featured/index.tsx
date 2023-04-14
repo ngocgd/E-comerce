@@ -10,7 +10,9 @@ const ProductsFeatured =  () => {
   const { data } = useSwr('/api/products', fetcher);
   useEffect(() => {
     (async () => {
-        const data_config = await dispatch(actionGetListPopup({ page: 1 }));
+    //     const data_config = await dispatch(actionGetListPopup({ page: 1 }));
+    // console.log('dataconfig',data_config)
+
     })()
 }, [dispatch])
   const todos = useSelector((state:RootState) => state.categoryReducer);

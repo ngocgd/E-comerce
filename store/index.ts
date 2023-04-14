@@ -3,6 +3,7 @@ import { createWrapper } from 'next-redux-wrapper';
 import cartReducer from './reducers/cart';
 import userReducer from './reducers/user';
 import categoryReducer from '../store/category/reducer'
+import userInfoReducer from '../store/user/reducer'
 import storage from 'redux-persist/lib/storage'
 import {
   persistStore,
@@ -13,13 +14,15 @@ import {
 const reducer = {
   cart: cartReducer,
   user: userReducer,
-  categoryReducer : categoryReducer
+  categoryReducer : categoryReducer,
+  userInfoReducer : userInfoReducer
 }
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   user: userReducer,
-  categoryReducer :categoryReducer
+  categoryReducer :categoryReducer,
+  userInfoReducer : userInfoReducer
 })
 
 let store = configureStore({ 

@@ -3,6 +3,14 @@ import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { server } from '../utils/server'; 
 import { postData } from '../utils/services'; 
+import {useDispatch, useSelector}from 'react-redux'
+import { actionUpdateUser,actionLoginUser } from 'store/user/actions';
+import { RootState } from 'store';
+import { useEffect } from 'react';
+import { Alert, AlertTitle, Button, Snackbar, Stack } from '@mui/material';
+import toast from '../components/toast/toast'
+import React from 'react';
+import { useRouter } from 'next/router';
 
 type LoginMail = {
   email: string;
@@ -11,16 +19,35 @@ type LoginMail = {
 
 const LoginPage = () => {
   const { register, handleSubmit, errors } = useForm();
+  const dispatch = useDispatch();
 
-  const onSubmit = async (data: LoginMail) => {
-    console.log('dataaaaaaaaaaaaaaaa',data)
-    const res = await postData(`${server}/api/login`, {
-      email: data.email,
-      password: data.password
-    });
-
-    console.log(res);
+  const [openSucess, setOpenSuccess] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+  const router = useRouter();
+  const handleClickSuccess = () => {
+    setOpenSuccess(true);
   };
+  const handleClickError = () => {
+    setOpenError(true);
+  };
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
+  const onSubmit = async (data: LoginMail) => {
+    const res:any = await dispatch(actionLoginUser(data));
+    if(res.code == 200){
+      handleClickSuccess();
+      router.push('/')
+    }else{
+      handleClickError();
+    }
+  };
+  const dataInfo = useSelector((state:RootState) => state.userInfoReducer);
 
   return (
     <Layout>
@@ -31,7 +58,6 @@ const LoginPage = () => {
               <a><i className="icon-left"></i> Back to store</a>
             </Link>
           </div>
-
           <div className="form-block">
             <h2 className="form-block__title">Log in</h2>
             <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing and typesetting 
@@ -99,6 +125,23 @@ const LoginPage = () => {
             </form>
           </div>
 
+        </div>
+        <div>
+        <Stack spacing={2} sx={{ width: '100%' }}>
+      {/* <Button variant="outlined" onClick={handleClick}>
+        Open success snackbar
+      </Button> */}
+      <Snackbar open={openSucess} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Login sucessfull!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openError} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Login failed!
+        </Alert>
+      </Snackbar>
+    </Stack>
         </div>
       </section>
     </Layout>

@@ -13,8 +13,7 @@ export const fetchApi = async (url, method = "get", body, headers) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-        site_id: siteId
+        token: `${token}`,
       },
     };
     if (headers) {

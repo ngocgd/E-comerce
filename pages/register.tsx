@@ -3,6 +3,8 @@ import Layout from '../layouts/Main';
 import Link from 'next/link';
 import {actionUpdateUser}  from '../store/user/actions.js'
 import { postData } from 'utils/services';
+import { actionGetListPopup } from 'store/category/actions';
+import {useDispatch}from 'react-redux'
 type register = {
   first_name :string,
   last_name :string,
@@ -10,9 +12,11 @@ type register = {
   password : string
 }
 const RegisterPage = () => {
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data: register) => {
-    
+    const data_config = await dispatch(actionUpdateUser(data));
+    console.log('dataconfigggggggg',data_config)
   };
   return(
   <Layout>
