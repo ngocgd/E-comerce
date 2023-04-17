@@ -18,6 +18,7 @@ const Reviews = ({ show, product }: ReviewsProductType) => {
         punctuation={product.punctuation.punctuation}
         countOpinions={product.punctuation.countOpinions}
         votes={product.punctuation.votes} 
+        product = {product}
       />
       <ReviewsList reviews={product.reviews} />
     </section>

@@ -23,6 +23,25 @@ export const actionUpdateUser = (payload) => async (dispatch) => {
     // alert(error || error?.message);
   }
 };
+export const actionAddOpinion = (payload) => async (dispatch) => {
+  try {
+    // dispatch(actionLoading(true));
+    let response = await fetchApi(
+      `/admin/user/add-opinion-by-user`,
+      "post",
+      payload
+    );
+    
+    if (response.statusCode !== 200) {
+      // dispatch(actionLoading(false));
+      // return checkErrorCode(response?.code, response?.message);
+    }
+    // dispatch(actionLoading(false));
+    return response;
+  } catch (error) {
+    // alert(error || error?.message);
+  }
+};
 export const actionLoginUser = (payload) => async (dispatch) => {
   try {
     // dispatch(actionLoading(true));

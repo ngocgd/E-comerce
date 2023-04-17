@@ -6,7 +6,8 @@ export type VotesType = {
 export type PunctuationType = {
   countOpinions: number;
   punctuation: number;
-  votes: VotesType[]
+  votes: VotesType[];
+  product : ProductType;
 }
 
 export type ReviewType = {

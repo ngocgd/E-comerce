@@ -1,16 +1,37 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useOnClickOutside from 'use-onclickoutside';
 import Logo from '../../assets/icons/logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RootState } from 'store';
-
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { actionSaveListUser } from 'store/user/actions';
 type HeaderType = {
   isErrorPage?: Boolean;
 }
 
 const Header = ({ isErrorPage }: HeaderType) => {
+  const dispatch = useDispatch();
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    // setAge(event.target.value as string);
+    if(event.target.value == 'logout'){
+      if (window.confirm("Do you want to logout?")) {
+        await Promise.all([
+          localStorage.removeItem("token"),
+          dispatch(actionSaveListUser(null)),
+        ]);
+        return router.push('/')
+      }
+    }
+  };
+
   const router = useRouter();
   const { cartItems } = useSelector((state: RootState)  => state.cart);
   const arrayPaths = ['/'];  
@@ -53,7 +74,6 @@ const Header = ({ isErrorPage }: HeaderType) => {
   // on click outside
   useOnClickOutside(navRef, closeMenu);
   useOnClickOutside(searchRef, closeSearch);
-
   return(
     <header className={`site-header ${!onTop ? 'site-header--fixed' : ''}`}>
       <div className="container">
@@ -85,15 +105,31 @@ const Header = ({ isErrorPage }: HeaderType) => {
               }
             </button>
           </Link>
-          <Link href="/login">
+          <Link href={dataInfo?.dataUser?'':'/login'}>
             <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
           </Link>
-          <button 
-            onClick={() => setMenuOpen(true)} 
+          {/* <button 
             className="site-header__btn-menu">
-            <i className="btn-hamburger"><span></span></i>
-          </button>
+            <i className="btn-hamburger" 
+            onClick={() => setMenuOpen(false)} 
+            ><span></span></i>
+          </button> */}
           {dataInfo?.dataUser && <div><p>{dataInfo?.dataUser?.first_name + dataInfo?.dataUser?.last_name}</p></div>}
+          {dataInfo?.dataUser && <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Thao tác</InputLabel>
+          <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          // label="Age"
+          onChange={handleChange}
+          >
+          <MenuItem value={'logout'}>Đăng xuất</MenuItem>
+          </Select>
+          </FormControl>
+          </Box>
+
+          }
         </div>
       </div>
     </header>
@@ -102,3 +138,6 @@ const Header = ({ isErrorPage }: HeaderType) => {
 
 
 export default Header;
+
+
+
