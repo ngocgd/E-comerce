@@ -3,6 +3,8 @@ import Footer from '../components/footer';
 import Breadcrumb from '../components/breadcrumb';
 import ProductsFilter from '../components/products-filter';
 import ProductsContent from '../components/products-content';
+import { GetServerSideProps } from 'next';
+import { ProductTypeList } from 'types';
 
 const Products = () => (
   <Layout>

@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper';
 import cartReducer from './reducers/cart';
 import userReducer from './reducers/user';
-import categoryReducer from '../store/category/reducer'
+import productReducer from './product/reducer'
 import userInfoReducer from '../store/user/reducer'
 import storage from 'redux-persist/lib/storage'
 import {
@@ -14,14 +14,14 @@ import {
 const reducer = {
   cart: cartReducer,
   user: userReducer,
-  categoryReducer : categoryReducer,
+  productReducer : productReducer,
   userInfoReducer : userInfoReducer
 }
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   user: userReducer,
-  categoryReducer :categoryReducer,
+  productReducer :productReducer,
   userInfoReducer : userInfoReducer
 })
 

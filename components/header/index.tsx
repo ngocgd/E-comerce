@@ -11,14 +11,23 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { actionSaveListUser } from 'store/user/actions';
+import { actionLoginByToken, actionSaveListUser } from 'store/user/actions';
 type HeaderType = {
   isErrorPage?: Boolean;
 }
 
 const Header = ({ isErrorPage }: HeaderType) => {
   const dispatch = useDispatch();
-
+  React.useLayoutEffect(() => {
+    (async () => {
+      if (localStorage.getItem("token")) {
+       const res = await dispatch(actionLoginByToken());
+        if (!res) {
+          window.location.reload();
+        }
+      }
+    })();
+  }, []);
   const handleChange = async (event: SelectChangeEvent) => {
     // setAge(event.target.value as string);
     if(event.target.value == 'logout'){
@@ -43,7 +52,6 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const searchRef = useRef(null);
   const dataInfo = useSelector((state:RootState) => state.userInfoReducer);
 
-  console.log('dataaaaaaneeeeeeeeeeeeee',dataInfo)
   const headerClass = () => {
     if(window.pageYOffset === 0) {
       setOnTop(true);

@@ -3,22 +3,37 @@ import PageIntro from '../components/page-intro';
 import ProductsFeatured from '../components/products-featured';
 import Footer from '../components/footer';
 import Subscribe from '../components/subscribe';
-import { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionLoginByToken } from 'store/user/actions';
-
+import { actionGetListProduct } from 'store/product/actions';
+import { RootState } from 'store';
+import { ProductTypeList } from 'types';
+import { GetServerSideProps } from 'next';
+type ProductsCarouselType = {
+  products: ProductTypeList[]
+}
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const val = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/product/get-list-product`, {
+//     headers: {
+//         'Content-Type': 'application/json',
+//     } 
+// });
+//   const dataVal = await val.json();
+//   const product = dataVal.data.rows;
+//   return {
+//     props: {
+//       product,
+//     },
+//   }
+// }
 const IndexPage = () => {
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
+  useEffect(() => {
     (async () => {
-      if (localStorage.getItem("token")) {
-       const res = await dispatch(actionLoginByToken());
-        if (!res) {
-          window.location.reload();
-        }
-      }
-    })();
-  }, []);
+        await dispatch(actionGetListProduct({ page: 1 }));
+    })()
+  }, [dispatch])
   return (
     <Layout>
       <PageIntro />

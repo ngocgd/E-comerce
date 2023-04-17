@@ -36,10 +36,10 @@ export type ProductTypeList = {
   id: string;
   name: string;
   price: string;
-  color: string;
+  // color: string;
   images: string[];
   discount?: string;
-  currentPrice?: number;
+  current_price?: number;
 }
 
 export type ProductStoreType = {

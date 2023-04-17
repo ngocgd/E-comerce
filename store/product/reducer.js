@@ -1,7 +1,7 @@
 import { Types } from "./types";
 
 const initialState = {
-  dataPopup: {
+  dataProduct: {
     paging: {},
     rows: [],
   },
@@ -9,10 +9,10 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
-    case Types.SAVE_LIST_POPUP:
+    case Types.SAVE_LIST_PRODUCT:
       return {
         ...newState,
-        dataPopup: action.payload,
+        dataProduct: action.payload,
       };
     default:
       return { ...newState };

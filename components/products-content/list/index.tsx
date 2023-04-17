@@ -2,27 +2,36 @@ import useSwr from 'swr';
 import ProductItem from '../../product-item';
 import ProductsLoading from './loading';
 import { ProductTypeList } from 'types';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionGetListProduct } from 'store/product/actions';
+import { useEffect } from 'react';
+import { RootState } from 'store';
+import { actionLoginByToken } from 'store/user/actions';
 
 const ProductsContent = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-    const { data, error } = useSwr('/api/products', fetcher);
-  console.log('dataaaaaaaaaaaProduct',data)
-  if (error) return <div>Failed to load users</div>;
+  const dispatch = useDispatch();
+   useEffect(() => {
+    (async () => {
+        await dispatch(actionGetListProduct({ page: 1 }));
+    })()
+  }, [dispatch])
+  const product = useSelector((state:RootState) => state.productReducer);
+  // if (error) return <div>Failed to load users</div>;
   return (
     <>
-      {!data && 
+      {!product?.dataProduct?.rows && 
         <ProductsLoading />
       }
 
-      {data &&
+      {product?.dataProduct?.rows &&
         <section className="products-list">
-          {data.map((item: ProductTypeList)  => (
+          {product?.dataProduct?.rows.map((item: ProductTypeList)  => (
             <ProductItem 
               id={item.id} 
               name={item.name}  
               price={item.price}
-              color={item.color}
-              currentPrice={item.currentPrice}
+              // color={item.color}
+              current_price={item.current_price}
               key={item.id}
               images={item.images} 
             />

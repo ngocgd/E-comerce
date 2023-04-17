@@ -13,6 +13,8 @@ import { server } from '../../utils/server';
 
 // types
 import { ProductType } from 'types';
+import { useDispatch } from 'react-redux';
+import { actionGetDetailProduct } from 'store/product/actions';
 
 type ProductPageType = {
   product: ProductType;
@@ -20,9 +22,13 @@ type ProductPageType = {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const pid = query.pid;
-  const res = await fetch(`${server}/api/product/${pid}`);
-  const product = await res.json();
-
+  const val = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/product/get-detail-product?id=${pid}?view=true`, {
+    headers: {
+        'Content-Type': 'application/json',
+    } 
+});
+  const dataVal = await val.json();
+  const product = dataVal.data;
   return {
     props: {
       product,

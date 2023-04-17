@@ -24,9 +24,7 @@ const Punctuation = ({ votes, punctuation, countOpinions,product }: PunctuationT
 
   const [addOpinion, setAddOpinion] = useState(false);
   const changeOpinion = ((value:boolean)=>{
-    console.log('changeeeee')
     setAddOpinion(value);
-    console.log('value',addOpinion);
   })
   const [openSucess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -42,7 +40,6 @@ const Punctuation = ({ votes, punctuation, countOpinions,product }: PunctuationT
   const onSubmit = async (data: addOpinion) => {
     data.product_id = Number(product.id);
     const res:any = await dispatch(actionAddOpinion(data));
-    console.log('res',res)
     if(res.code == 200){
       handleClickSuccess();
       setAddOpinion(false);

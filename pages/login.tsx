@@ -11,12 +11,12 @@ import { Alert, AlertTitle, Button, Snackbar, Stack } from '@mui/material';
 import toast from '../components/toast/toast'
 import React from 'react';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
 type LoginMail = {
   email: string;
   password: string;
 }
-
 const LoginPage = () => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();

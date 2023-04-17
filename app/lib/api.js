@@ -36,7 +36,6 @@ export const fetchApi = async (url, method = "get", body, headers) => {
     }
     return fetchdata.data;
   } catch (error) {
-    console.log("error124", error);
     let { response } = error;
     if (response) {
       return response.data;
@@ -70,7 +69,6 @@ export const fetchApiUpload = async (url, method = "get", body) => {
     }
     return fetchdata.data;
   } catch (error) {
-    console.log("error124", error);
     let { response } = error;
     if (response) {
       return response.data;
