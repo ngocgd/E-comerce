@@ -3,13 +3,17 @@ import PageIntro from '../components/page-intro';
 import ProductsFeatured from '../components/products-featured';
 import Footer from '../components/footer';
 import Subscribe from '../components/subscribe';
-import { useEffect, useLayoutEffect } from 'react';
+import ChatBot from '../components/chatbot';
+// import ChatBox = React.lazy(()=> import {  } from "module";)
+import Logo from '../assets/icons/logo';
+import { Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionLoginByToken } from 'store/user/actions';
 import { actionGetListProduct } from 'store/product/actions';
 import { RootState } from 'store';
 import { ProductTypeList } from 'types';
 import { GetServerSideProps } from 'next';
+import React from 'react';
 type ProductsCarouselType = {
   products: ProductTypeList[]
 }
@@ -27,7 +31,13 @@ type ProductsCarouselType = {
 //     },
 //   }
 // }
+
 const IndexPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
@@ -37,7 +47,16 @@ const IndexPage = () => {
   return (
     <Layout>
       <PageIntro />
+      <div className='popup-box'>
 
+        <div>
+        <button  onClick={togglePopup}><label className="chat-btn" htmlFor="check" style={{backgroundImage: 'url(/images/chatbot.svg)' }}/></button>
+        </div>
+    </div>
+      
+    {isOpen && <ChatBot
+      // handleClose={togglePopup}
+    />}
       <section className="featured">
         <div className="container">
           <article style={{backgroundImage: 'url(/images/featured-1.jpg)'}} className="featured-item featured-item-large">
@@ -104,8 +123,8 @@ const IndexPage = () => {
             </li>
           </ul>
         </div>
+        {/* <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/01fc21b2-2ffa-4d2a-8ad5-c87492ab990f"></iframe> */}
       </section>
-
       <ProductsFeatured />
       <Subscribe />
       <Footer />

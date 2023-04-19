@@ -38,7 +38,7 @@ const Content = ({ product }: ProductContent) => {
       id: product.id,
       name: product.name,
       thumb: product.images ? product.images[0] : '',
-      price: product.currentPrice,
+      price: product.current_price,
       count: count,
       color: color,
       size: itemSize
@@ -60,7 +60,7 @@ const Content = ({ product }: ProductContent) => {
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${ product.currentPrice }</h4>
+          <h4>${ product.current_price }</h4>
           {product.discount &&
             <span>${ product.price }</span>
           }
