@@ -6,8 +6,8 @@ type CheckboxType = {
 }
 
 const Checkbox = ({ type = '', label, name, onChange }: CheckboxType) => (
-	<label htmlFor={label+'-'+name} className={`checkbox ${type ? 'checkbox--'+type : ''}`}>
-		<input name={name} onChange={onChange} type="checkbox" id={label+'-'+name} />
+	<label htmlFor={name} className={`checkbox ${type ? 'checkbox--'+type : ''}`}>
+		<input name={name} onChange={onChange} type="checkbox" id={name} />
 		<span className="checkbox__check"></span>
     	<p>{label}</p>
 	</label>

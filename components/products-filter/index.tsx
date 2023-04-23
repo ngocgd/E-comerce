@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Checkbox from './form-builder/checkbox';
 import CheckboxColor from './form-builder/checkbox-color';
 import Slider from 'rc-slider';
@@ -7,17 +7,53 @@ import Slider from 'rc-slider';
 import productsTypes from './../../utils/data/products-types';
 import productsColors from './../../utils/data/products-colors';
 import productsSizes from './../../utils/data/products-sizes';
+import { useDispatch } from 'react-redux';
+import { actionGetListProduct } from 'store/product/actions';
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
 const ProductsFilter = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [dataCheckBox,setDataCheckBox] = useState([]);
+  const [dataRange,setDataRange] = useState([0,100]);
+  const [productType,setProductType] = useState([]);
 
-  const addQueryParams = () => {
-    // query params changes
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getListProductCategory();
+  }, []);
+  const getListProductCategory = async () => {
+      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/product-category/get-list-product-category-apps?view=true`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    const val = await data.json();
+    setProductType(val.data.rows)
+  };
+  
+  const addQueryParams = async () => {
+    const res:any = await dispatch(actionGetListProduct({categories : dataCheckBox,dataRange}));
   }
-
+  const setDataCheck = (event:any)=>{
+    const  removeElement= ((array:Array<string>, elem:string)=> {
+      var index = array.indexOf(elem);
+      if (index > -1) {
+          array.splice(index, 1);
+      }
+    })
+    const val:string = event.target.id
+    if(!dataCheckBox.includes(val)){
+      dataCheckBox.push(val);
+    }else{
+      removeElement(dataCheckBox,val);
+    }
+  }
+  const changeDataRange = (event:any) => {
+    setDataRange(event);
+    addQueryParams();
+  };
   return (
     <form className="products-filter" onChange={addQueryParams}>
       <button type="button" 
@@ -30,11 +66,12 @@ const ProductsFilter = () => {
         <div className="products-filter__block">
           <button type="button">Product type</button>
           <div className="products-filter__block__content">
-            {productsTypes.map(type => (
+            {productType.map(type => (
               <Checkbox 
                 key={type.id} 
-                name="product-type" 
+                name={type.slug}
                 label={type.name} 
+                onChange={setDataCheck}
               />
             ))}
           </div>
@@ -43,11 +80,17 @@ const ProductsFilter = () => {
         <div className="products-filter__block">
           <button type="button">Price</button>
           <div className="products-filter__block__content">
-            <Range min={0} max={20} defaultValue={[3, 10]} tipFormatter={value => `${value}%`} />
+            <Range
+             min={0} 
+             max={100} 
+             defaultValue={[3, 10]} 
+             tipFormatter={value => `${value}%`} 
+             onChange={changeDataRange}
+             />
           </div>
         </div>
         
-        <div className="products-filter__block">
+        {/* <div className="products-filter__block">
           <button type="button">Size</button>
           <div className="products-filter__block__content checkbox-square-wrapper">
             {productsSizes.map(type => (
@@ -58,9 +101,9 @@ const ProductsFilter = () => {
                 label={type.label} />
             ))}
           </div>
-        </div>
+        </div> */}
         
-        <div className="products-filter__block">
+        {/* <div className="products-filter__block">
           <button type="button">Color</button>
           <div className="products-filter__block__content">
             <div className="checkbox-color-wrapper">
@@ -69,7 +112,7 @@ const ProductsFilter = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <button type="submit" className="btn btn-submit btn--rounded btn--yellow">Apply</button>
       </div>

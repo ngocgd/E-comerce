@@ -8,7 +8,7 @@ import { ProductTypeList } from 'types';
 
 const Products = () => (
   <Layout>
-    <Breadcrumb />
+    <Breadcrumb props = 'All Product'/>
     <section className="products-page">
       <div className="container">
         <ProductsFilter />

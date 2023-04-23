@@ -17,31 +17,36 @@ import React from 'react';
 type ProductsCarouselType = {
   products: ProductTypeList[]
 }
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const val = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/product/get-list-product`, {
-//     headers: {
-//         'Content-Type': 'application/json',
-//     } 
-// });
-//   const dataVal = await val.json();
-//   const product = dataVal.data.rows;
-//   return {
-//     props: {
-//       product,
-//     },
-//   }
-// }
-
+type hotPost = {
+  id :number,
+  title : string,
+  status : number,
+  hot : number,
+  showdate : Date,
+  image : string
+}
 const IndexPage = () => {
   const [isOpen, setIsOpen] = useState(false);
- 
+  const [hotPost, setHotPost] = useState([]);
+  useEffect(() => {
+    getListImageOffice();
+  }, []);
+  const getListImageOffice = async () => {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/app/post/get-news-hot?view=true`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    const val = await data.json();
+    setHotPost(val.data)
+  };
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
-        await dispatch(actionGetListProduct({ page: 1 }));
+      await dispatch(actionGetListProduct({ page: 1 }));
     })()
   }, [dispatch])
   return (
@@ -50,35 +55,47 @@ const IndexPage = () => {
       <div className='popup-box'>
 
         <div>
-        <button  onClick={togglePopup}><label className="chat-btn" htmlFor="check" style={{backgroundImage: 'url(/images/chatbot.svg)' }}/></button>
+          <button onClick={togglePopup}><label className="chat-btn" htmlFor="check" style={{ backgroundImage: 'url(/images/chatbot.svg)' }} /></button>
         </div>
-    </div>
-      
-    {isOpen && <ChatBot
+      </div>
+
+      {isOpen && <ChatBot
       // handleClose={togglePopup}
-    />}
+      />}
       <section className="featured">
         <div className="container">
-          <article style={{backgroundImage: 'url(/images/featured-1.jpg)'}} className="featured-item featured-item-large">
+          {
+            hotPost.map((it:hotPost,index) => (
+              <>
+                <article style={{ backgroundImage: `url(${it?.image})` }} className={index===0?'featured-item featured-item-large':index===1?'featured-item featured-item-small-first':'featured-item featured-item-small'}>
+                  <div className="featured-item__content">
+                    <h3>{it?.title}</h3>
+                    <a href="#" className="btn btn--rounded">Show Collection</a>
+                  </div>
+                </article>
+              </>
+            ))
+          }
+          {/* <article style={{ backgroundImage: 'url(/images/featured-1.jpg)' }} className="featured-item featured-item-large">
             <div className="featured-item__content">
               <h3>New arrivals are now in!</h3>
               <a href="#" className="btn btn--rounded">Show Collection</a>
             </div>
           </article>
-          
-          <article style={{backgroundImage: 'url(/images/featured-2.jpg)'}} className="featured-item featured-item-small-first">
+
+          <article style={{ backgroundImage: 'url(/images/featured-2.jpg)' }} className="featured-item featured-item-small-first">
             <div className="featured-item__content">
               <h3>Basic t-shirts $29,99</h3>
               <a href="#" className="btn btn--rounded">More details</a>
             </div>
           </article>
-          
-          <article style={{backgroundImage: 'url(/images/featured-3.jpg)'}} className="featured-item featured-item-small">
+
+          <article style={{ backgroundImage: 'url(/images/featured-3.jpg)' }} className="featured-item featured-item-small">
             <div className="featured-item__content">
               <h3>Sale this summer</h3>
               <a href="#" className="btn btn--rounded">VIEW ALL</a>
             </div>
-          </article>
+          </article> */}
         </div>
       </section>
 
@@ -96,7 +113,7 @@ const IndexPage = () => {
                 <p>All purchases over $199 are eligible for free shipping via USPS First Class Mail.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-payment"></i>
               <div className="data-item__content">
@@ -104,16 +121,16 @@ const IndexPage = () => {
                 <p>All payments are processed instantly over a secure payment protocol.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-cash"></i>
               <div className="data-item__content">
                 <h4>Money-Back Guarantee</h4>
                 <p>If an item arrived damaged or you've changed your mind, you can send it
-                back for a full refund.</p>
+                  back for a full refund.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-materials"></i>
               <div className="data-item__content">

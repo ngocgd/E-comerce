@@ -46,7 +46,7 @@ const Footer = () => {
       
       <div className="site-footer__bottom">
         <div className="container">
-          <p>DESIGN BY ICEO.CO - © 2019. ALL RIGHTS RESERVED.</p>
+          <p>DESIGN BY _ntNoc_ - Betaa Shop 2023</p>
         </div>
       </div>
     </footer>

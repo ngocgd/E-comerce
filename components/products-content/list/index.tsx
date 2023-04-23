@@ -30,7 +30,7 @@ const ProductsContent = () => {
               id={item.id} 
               name={item.name}  
               price={item.price}
-              // color={item.color}
+              discount={item.discount}
               current_price={item.current_price}
               key={item.id}
               images={item.images} 
