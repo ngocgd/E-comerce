@@ -22,16 +22,27 @@ const Contact = () => {
   const dispatch = useDispatch();
   const onSubmit = async (data: any) => {
     console.log('DDDDDDDDDDDDD')
-    console.log('dataaaaaa', data)
-    // const res:any = await dispatch(actionLoginUser(data));
-    // if(res.code == 200){
-    // //   handleClickSuccess();
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/request/update-contact-request?view=true`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    // if (res.code == 200) {
+    //   //   handleClickSuccess();
     //   router.push('/')
-    // }else{
-    // //   handleClickError();
+    // } else {
+    //   //   handleClickError();
     // }
   };
-  const setValueArea = async (value:any)=>{
+  const setValueArea = async (value: any) => {
     setTextArea(value.target.value)
   }
   return (
@@ -92,18 +103,35 @@ const Contact = () => {
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
                       placeholder="name"
                       type="number"
-                      name="phone"
+                      name="mobile"
                       ref={register({
                         required: true,
                         pattern: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
                       })}
                     />
 
-                    {errors.phone && errors.phone.type === 'required' &&
+                    {errors.mobile && errors.mobile.type === 'required' &&
                       <p className="message message--error">This field is required</p>
                     }
-                    {errors.phone && errors.phone.type === 'pattern' &&
+                    {errors.mobile && errors.mobile.type === 'pattern' &&
                       <p className="message message--error">Please write a valid phone</p>
+                    }
+                  </div>
+                  <div className="u-form-group u-form-name u-form-partition-factor-2 u-label-top">
+                    <label htmlFor="name-66b3" className="u-label">Address</label>
+                    <input
+                      className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
+                      placeholder="name"
+                      type="text"
+                      name="address"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
+
+                    {errors.address && errors.address.type === 'required' &&
+                      <p className="message message--error">This field is required</p>
                     }
                   </div>
                   <input
@@ -114,9 +142,9 @@ const Contact = () => {
                       required: true,
                     })}
                   />
-                  {errors.description && errors.description.type === 'required' && 
-                  <p className="message message--error">This field is required</p>
-                }
+                  {errors.description && errors.description.type === 'required' &&
+                    <p className="message message--error">This field is required</p>
+                  }
                   <div className="u-form-group u-form-message u-label-top">
                     <label htmlFor="message-66b3" className="u-label">Message</label>
                     <textarea placeholder="Enter your message" value={textArea} onChange={setValueArea} rows={4} cols={50} id="message-66b3" name="message" className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20" required defaultValue={""} />

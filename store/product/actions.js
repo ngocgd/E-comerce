@@ -1,12 +1,12 @@
 import { fetchApi } from "../../app/lib/api";
 import { Types } from "./types";
-// import { actionLoading } from "../home/actions";
+import { actionLoading } from "../home/actions";
 // import { checkErrorCode } from "../auth/actions";
 import { LIMIT_PAGE, LIMIT_PAGE_MAX } from "../../app/lib/commom";
 
 export const actionGetListProduct= (payload) => async (dispatch) => {
   try {
-    // dispatch(actionLoading(true));
+    dispatch(actionLoading(true));
     const { page, limit } = payload;
 
     payload.limit = limit || LIMIT_PAGE;
@@ -17,7 +17,7 @@ export const actionGetListProduct= (payload) => async (dispatch) => {
     );
     
     if (response.code !== 200) {
-      // dispatch(actionLoading(false));
+      dispatch(actionLoading(false));
       // return checkErrorCode(response?.code, response?.message);
     }
     response.data = {
@@ -30,7 +30,7 @@ export const actionGetListProduct= (payload) => async (dispatch) => {
       },
     };
     await dispatch(actionSaveListProduct(response.data));
-    // dispatch(actionLoading(false));
+    dispatch(actionLoading(false));
     return response.data;
   } catch (error) {
     // alert(error || error?.message);

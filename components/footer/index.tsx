@@ -7,8 +7,8 @@ const Footer = () => {
       <div className="container">
         <div className="site-footer__top">
           <div className="site-footer__description">
-            <h6> <Logo /> <span>Be-taa  -</span>{shop}</h6>
-            <p>This is Be-taa.Co-founder is _ntNocj_</p>
+            <h6> <Logo /> <span>Betaa  -</span>{shop}</h6>
+            <p>This is Betaa Shop.Co-founder is _ntNocj_</p>
             <ul className="site-footer__social-networks">
               <li><a href="#"><i className="icon-facebook"></i></a></li>
               <li><a href="#"><i className="icon-twitter"></i></a></li>

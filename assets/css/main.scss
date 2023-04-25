@@ -3623,3 +3623,20 @@ h3 {
 }
 
 
+.example {
+  margin: 20px 0;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.tmar-spin-container .ant-spin-spinning {
+  z-index: 9999 !important;
+  min-height: 81vh !important;
+
+  &.ant-spin {
+      max-height: 81vh !important;
+  }
+}
