@@ -3005,8 +3005,8 @@ button {
 .btn,
 .btn:focus,
 .btn:hover {
-  background-color: blue;
-  border: blue
+  background-color: rgb(247, 247, 72);
+  border: orange
 }
 
 #check {
@@ -3639,4 +3639,9 @@ h3 {
   &.ant-spin {
       max-height: 81vh !important;
   }
+}
+
+.img-qrcode {
+  margin-left: 400px;
+  size: 50%;
 }

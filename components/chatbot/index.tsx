@@ -1,5 +1,4 @@
 
-import Logo from '../../assets/icons/logo';
 const ChatBot = () => {
   return (
     <div className='popup-box'>

@@ -11,13 +11,30 @@ import { useDispatch } from 'react-redux';
 import React from 'react';
 import router from 'next/router';
 import { useForm } from 'react-hook-form';
+import { Alert, Snackbar, Stack } from '@mui/material';
 
 const Contact = () => {
+  const [error,setError] = React.useState('Register Failed')
   const [openSucess, setOpenSuccess] = React.useState(false);
   const { register, handleSubmit, errors } = useForm();
+  const [openError, setOpenError] = React.useState(false);
   const [textArea, setTextArea] = React.useState('')
   const handleClickSuccess = () => {
     setOpenSuccess(true);
+  };
+  const handleClickError = (message) => {
+    console.log('aaaaaaaaaaa')
+    setOpenError(true);
+    console.log('messss',message)
+    setError(message)
+  };
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenError(false);
   };
   const dispatch = useDispatch();
   const onSubmit = async (data: any) => {
@@ -35,20 +52,37 @@ const Contact = () => {
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
-    // if (res.code == 200) {
-    //   //   handleClickSuccess();
-    //   router.push('/')
-    // } else {
-    //   //   handleClickError();
-    // }
+    console.log("ressssss",res)
+    if (res.status == 200) {
+      handleClickSuccess();
+      router.push('/')
+    } else {
+      console.log('resMessage',res.message)
+      handleClickError(res.message);
+    }
   };
   const setValueArea = async (value: any) => {
     setTextArea(value.target.value)
   }
   return (
     <Layout>
-      <Breadcrumb props='All Product' />
+      <Breadcrumb props='Contact' />
       <section className="contact-page">
+        <Stack spacing={2} sx={{ width: '100%' }}>
+          {/* <Button variant="outlined" onClick={handleClick}>
+        Open success snackbar
+      </Button> */}
+          <Snackbar open={openSucess} autoHideDuration={2000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              Add contact sucessfull!
+            </Alert>
+          </Snackbar>
+          <Snackbar open={openError} autoHideDuration={2000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              {error}
+            </Alert>
+          </Snackbar>
+        </Stack>
         <div>
           <header className="u-clearfix u-header u-header" id="sec-5653"><div className="u-clearfix u-sheet u-sheet-1" /></header>
           <section className="u-clearfix u-image u-section-1" id="sec-32e5" data-image-width={2250} data-image-height={1500}>
@@ -60,7 +94,7 @@ const Contact = () => {
                     <label htmlFor="name-66b3" className="u-label">Name</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
-                      placeholder="name"
+                      placeholder="Name"
                       type="text"
                       name="name"
                       ref={register({
@@ -80,7 +114,7 @@ const Contact = () => {
                     }
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
-                      placeholder="email"
+                      placeholder="Email"
                       type="text"
                       name="email"
                       ref={register({
@@ -101,7 +135,7 @@ const Contact = () => {
                     <label htmlFor="name-66b3" className="u-label">Phone</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
-                      placeholder="name"
+                      placeholder="Phone"
                       type="number"
                       name="mobile"
                       ref={register({
@@ -121,7 +155,7 @@ const Contact = () => {
                     <label htmlFor="name-66b3" className="u-label">Address</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
-                      placeholder="name"
+                      placeholder="Adress"
                       type="text"
                       name="address"
                       ref={register({

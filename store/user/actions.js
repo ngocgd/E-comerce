@@ -12,13 +12,13 @@ export const actionUpdateUser = (payload) => async (dispatch) => {
       "post",
       payload
     );
-    
-    if (response.code !== 200) {
-      // dispatch(actionLoading(false));
-      // return checkErrorCode(response?.code, response?.message);
-    }
+    console.log(response)
+    // if (response.code !== 200) {
+    //   dispatch(actionLoading(false));
+    //   return checkErrorCode(response?.code, response?.message);
+    // }
     // dispatch(actionLoading(false));
-    return response.data;
+    return response;
   } catch (error) {
     // alert(error || error?.message);
   }

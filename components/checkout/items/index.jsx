@@ -17,7 +17,7 @@ const CheckoutItems = () => {
               <span>#{item.id}</span>
             </div>
           </div>
-          <h3>${item.price}</h3>
+          <h3>{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND</h3>
         </li>
       ))}
     </ul>

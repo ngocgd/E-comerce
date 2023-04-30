@@ -37,10 +37,10 @@ const ProductItem = ({ discount, images, id, name, price, current_price }: Produ
       <div className="product__description">
         <h3>{name}</h3>
         <div className={"product__price " + (discount ? 'product__price--discount' : '')} >
-          <h4>${ current_price }</h4>
+          <h4>{ current_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') } VNĐ</h4>
 
           {discount &&  
-            <span>${ price }</span>
+            <span>{ price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') } VNĐ</span>
           }
         </div>
       </div>

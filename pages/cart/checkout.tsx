@@ -3,9 +3,20 @@ import { useSelector } from 'react-redux';
 import CheckoutStatus from '../../components/checkout-status';
 import CheckoutItems from '../../components/checkout/items';
 import { RootState } from 'store';
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
+import { createRef } from 'react';
+const generate_code = require('../../utils/generate_string.js')
+const  generateString = ((length)=> {
+  let result = ' ';
+  const charactersLength = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
 
+  return result;
+})
 const CheckoutPage = () => {
   const router = useRouter();
   const priceTotal = useSelector((state: RootState) => {
@@ -17,12 +28,37 @@ const CheckoutPage = () => {
 
     return totalPrice;
   })
-  const onPayment = async ()=>{
-    console.log('AAAAAAAAAAAAAa')
-    router.push('/payment/4')
-  }
+  const formRef = createRef();
+  
   const dataInfo = useSelector((state:RootState) => state.userInfoReducer.dataUser);
-  console.log('DDDDDDDDDDDDDDDDd',dataInfo)
+  const dataCard = useSelector((state:RootState) => state.cart.cartItems);
+  const onPayment = async ()=>{
+    let token = localStorage.getItem("token");
+    const code = generateString(12);
+    const data = {
+      order_code : code,
+      amount : priceTotal,
+      cart : dataCard
+    }
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/user/order-product?view=true`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        token: `${token}`,
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    router.push({
+      pathname: '/payment/[pid,category]',
+      query: {name : dataInfo.first_name + ' ' + dataInfo.last_name,total_price : priceTotal,code},
+    })
+  }
   return (
     <Layout>
       <section className="cart">
@@ -41,7 +77,7 @@ const CheckoutPage = () => {
 
               <div className="block">
                 <h3 className="block__title">Shipping information</h3>
-                <form className="form">
+                <form className="form" >
                   <div className="form__input-row form__input-row--two">
                     <div className="form__col">
                       <input className="form__input form__input--sm" type="text" placeholder="Email" />
@@ -145,7 +181,7 @@ const CheckoutPage = () => {
 
                 <div className="checkout-total">
                   <p>Total cost</p>
-                  <h3>${priceTotal}</h3>
+                  <h3>{priceTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ</h3>
                 </div>
               </div>
             </div>
@@ -154,8 +190,8 @@ const CheckoutPage = () => {
           <div className="cart-actions cart-actions--checkout">
             <a href="/cart" className="cart__btn-back"><i className="icon-left"></i> Back</a>
             <div className="cart-actions__items-wrapper">
-              <button type="button" className="btn btn--rounded btn--border">Continue shopping</button>
-              <button type="button" onClick={onPayment} className="btn btn--rounded btn--yellow">Proceed to payment</button>
+              <a  href="/products"><button type="button" className="btn btn--rounded btn--border">Continue shopping</button></a>
+              {dataCard.length>0 && dataInfo && <button type="button" onClick={onPayment} className="btn btn--rounded btn--yellow">Proceed to payment</button>}
             </div>
           </div>
         </div>

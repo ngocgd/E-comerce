@@ -60,9 +60,9 @@ const Content = ({ product }: ProductContent) => {
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${ product.current_price }</h4>
+          <h4>{ product.current_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') } VNĐ</h4>
           {product.discount &&
-            <span>${ product.price }</span>
+            <span>{ product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') } VNĐ</span>
           }
         </div>
       </div>
