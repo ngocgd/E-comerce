@@ -64,7 +64,7 @@ const ProductsFilter = () => {
       
       <div className={`products-filter__wrapper ${filtersOpen ? 'products-filter__wrapper--open' : ''}`}>
         <div className="products-filter__block">
-          <button type="button">Product type</button>
+          <button type="button">Danh mục</button>
           <div className="products-filter__block__content">
             {productType.map(type => (
               <Checkbox 
@@ -78,7 +78,7 @@ const ProductsFilter = () => {
         </div>
 
         <div className="products-filter__block">
-          <button type="button">Price</button>
+          <button type="button">Khuyến mãi</button>
           <div className="products-filter__block__content">
             <Range
              min={0} 

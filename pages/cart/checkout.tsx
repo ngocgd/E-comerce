@@ -7,6 +7,7 @@ const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345678
 import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
 import { createRef } from 'react';
+import { useForm } from 'react-hook-form';
 const generate_code = require('../../utils/generate_string.js')
 const  generateString = ((length)=> {
   let result = ' ';
@@ -29,17 +30,20 @@ const CheckoutPage = () => {
     return totalPrice;
   })
   const formRef = createRef();
-  
+  const { register, handleSubmit, errors,getValues} = useForm();
   const dataInfo = useSelector((state:RootState) => state.userInfoReducer.dataUser);
   const dataCard = useSelector((state:RootState) => state.cart.cartItems);
   const onPayment = async ()=>{
     let token = localStorage.getItem("token");
     const code = generateString(12);
-    const data = {
+    const shipping_information = getValues();
+    let data = {
       order_code : code,
       amount : priceTotal,
-      cart : dataCard
+      cart : dataCard,
+      shipping_information
     }
+    console.log('dataaaaaaaaaaa',data)
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/user/order-product?view=true`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -64,62 +68,91 @@ const CheckoutPage = () => {
       <section className="cart">
         <div className="container">
           <div className="cart__intro">
-            <h3 className="cart__title">Shipping and Payment</h3>
+            <h3 className="cart__title">Thông tin vận chuyển và thanh toán</h3>
             <CheckoutStatus step="checkout" />
           </div>
 
           <div className="checkout-content">
             <div className="checkout__col-6">
-              <div className="checkout__btns">
+              {/* <div className="checkout__btns">
                 <button className="btn btn--rounded btn--yellow">Log in</button>
                 <button className="btn btn--rounded btn--border">Sign up</button>
-              </div>
+              </div> */}
 
               <div className="block">
-                <h3 className="block__title">Shipping information</h3>
+                <h3 className="block__title">Thông tin vận chuyển</h3>
                 <form className="form" >
                   <div className="form__input-row form__input-row--two">
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="Email" />
+                    <input
+                      className="form__input form__input--sm"
+                      placeholder="Name"
+                      type="text"
+                      name="name"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
                     </div>
 
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="Address" />
+                    <input
+                      className="form__input form__input--sm"
+                      placeholder="Address"
+                      type="text"
+                      name="address"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
                     </div>
                   </div>
 
                   <div className="form__input-row form__input-row--two">
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="First name" />
+                    <input
+                      className="form__input form__input--sm"
+                      placeholder="First name"
+                      type="text"
+                      name="first_name"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
                     </div>
 
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="City" />
+                    <input
+                      className="form__input form__input--sm"
+                      placeholder="City"
+                      type="text"
+                      name="city"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
                     </div>
                   </div>
 
                   <div className="form__input-row form__input-row--two">
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="Last name" />
+                    <input
+                      className="form__input form__input--sm"
+                      placeholder="Last name"
+                      type="text"
+                      name="last_name"
+                      ref={register({
+                        required: true,
+                        // pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                    />
                     </div>
-
-                    <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="Postal code / ZIP" />
-                    </div>
-                  </div>
-
-                  <div className="form__input-row form__input-row--two">
                     <div className="form__col">
                       <input className="form__input form__input--sm" type="text" placeholder="Phone number" />
-                    </div>
-
-                    <div className="form__col">
-                      <div className="select-wrapper select-form">
-                        <select>
-                          <option>Country</option>
-                          <option value="Argentina">Argentina</option>
-                        </select>
-                      </div>
                     </div>
                   </div>
                 </form>
@@ -128,7 +161,7 @@ const CheckoutPage = () => {
 
             <div className="checkout__col-4">
               <div className="block">
-                <h3 className="block__title">Payment method</h3>
+                <h3 className="block__title">Phương thức thanh toán</h3>
                 <ul className="round-options round-options--three">
                   <li className="round-item">
                     <img src="/images/logos/paypal.png" alt="Paypal" />
@@ -136,7 +169,7 @@ const CheckoutPage = () => {
                   <li className="round-item">
                     <img src="/images/logos/visa.png" alt="Paypal" />
                   </li>
-                  <li className="round-item">
+                  {/* <li className="round-item">
                     <img src="/images/logos/mastercard.png" alt="Paypal" />
                   </li>
                   <li className="round-item">
@@ -147,10 +180,10 @@ const CheckoutPage = () => {
                   </li>
                   <li className="round-item">
                     <img src="/images/logos/ideal-logo.svg" alt="Paypal" />
-                  </li>
+                  </li> */}
                 </ul>
               </div>
-
+{/* 
               <div className="block">
                 <h3 className="block__title">Delivery method</h3>
                 <ul className="round-options round-options--two">
@@ -171,7 +204,7 @@ const CheckoutPage = () => {
                     <p>$10.00</p>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
 
             <div className="checkout__col-2">
@@ -188,10 +221,10 @@ const CheckoutPage = () => {
           </div>
 
           <div className="cart-actions cart-actions--checkout">
-            <a href="/cart" className="cart__btn-back"><i className="icon-left"></i> Back</a>
+            <a href="/cart" className="cart__btn-back"><i className="icon-left"></i> Quay lại</a>
             <div className="cart-actions__items-wrapper">
-              <a  href="/products"><button type="button" className="btn btn--rounded btn--border">Continue shopping</button></a>
-              {dataCard.length>0 && dataInfo && <button type="button" onClick={onPayment} className="btn btn--rounded btn--yellow">Proceed to payment</button>}
+              <a  href="/products"><button type="button" className="btn btn--rounded btn--border">Tiếp tục mua sắm</button></a>
+              {dataCard.length>0 && dataInfo && <button type="button" onClick={onPayment} className="btn btn--rounded btn--yellow">Tiếp tục thanh toán</button>}
             </div>
           </div>
         </div>

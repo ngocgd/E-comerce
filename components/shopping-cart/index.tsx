@@ -19,7 +19,7 @@ const ShoppingCart = () => {
     <section className="cart">
       <div className="container">
         <div className="cart__intro">
-          <h3 className="cart__title">Shopping Cart</h3>
+          <h3 className="cart__title">Giỏ hàng</h3>
           <CheckoutStatus step="cart" />
         </div>
 
@@ -28,11 +28,11 @@ const ShoppingCart = () => {
             <table>
               <tbody>
                 <tr>
-                  <th style={{textAlign: 'left'}}>Product</th>
-                  <th>Color</th>
-                  <th>Size</th>
-                  <th>Ammount</th>
-                  <th>Price</th>
+                  <th style={{textAlign: 'left'}}>Sản phẩm</th>
+                  <th></th>
+                  <th></th>
+                  <th>Số lượng</th>
+                  <th>Giá</th>
                   <th></th>
                 </tr>
 
@@ -53,17 +53,17 @@ const ShoppingCart = () => {
           } 
           
           {cartItems.length === 0 && 
-            <p>Nothing in the cart</p>
+            <p>Không có sản phẩm nào trong giỏ</p>
           }
         </div>
       
         <div className="cart-actions">
-          <a href="/products" className="cart__btn-back"><i className="icon-left"></i> Continue Shopping</a>
-          <input type="text" placeholder="Promo Code" className="cart__promo-code" />
+          <a href="/products" className="cart__btn-back"><i className="icon-left"></i> Tiếp tục mua hàng</a>
+          {/* <input type="text" placeholder="Promo Code" className="cart__promo-code" /> */}
 
           <div className="cart-actions__items-wrapper">
-            <p className="cart-actions__total">Total cost <strong>{priceTotal().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ</strong></p>
-            <a href="/cart/checkout" className="btn btn--rounded btn--yellow">Checkout</a>
+            <p className="cart-actions__total">Tổng tiền <strong>{priceTotal().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ</strong></p>
+            <a href="/cart/checkout" className="btn btn--rounded btn--yellow">Thanh toán</a>
           </div>
         </div>
       </div>

@@ -55,11 +55,11 @@ const LoginPage = () => {
         <div className="container">
           <div className="back-button-section">
             <Link href="/products">
-              <a><i className="icon-left"></i> Back to store</a>
+              <a><i className="icon-left"></i> Trở lại cửa hàng</a>
             </Link>
           </div>
           <div className="form-block">
-            <h2 className="form-block__title">Log in</h2>
+            <h2 className="form-block__title">Đăng nhập</h2>
           
             
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -107,10 +107,10 @@ const LoginPage = () => {
                       ref={register({ required: false })}
                     />
                     <span className="checkbox__check"></span>
-                    <p>Keep me signed in</p>
+                    <p>Giữ đăng nhập</p>
                   </label>
                 </div>
-                <a href="/forgot-password" className="form__info__forgot-password">Forgot password?</a>
+                <a href="/forgot-password" className="form__info__forgot-password">Quên mật khẩu?</a>
               </div>
 
               <div className="form__btns">
@@ -118,9 +118,9 @@ const LoginPage = () => {
                 <button type="button" className="btn-social google-btn"><img src="/images/icons/gmail.svg" alt="gmail" /> Gmail</button>
               </div>
 
-              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign in</button>
+              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Đăng nhập</button>
 
-              <p className="form__signup-link">Not a member yet? <a href="/register">Sign up</a></p>
+              <p className="form__signup-link">Chưa phải thành viên? <a href="/register">Đăng ký</a></p>
             </form>
           </div>
 

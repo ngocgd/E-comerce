@@ -70,7 +70,7 @@ const IndexPage = () => {
                 <article style={{ backgroundImage: `url(${it?.image})` }} className={index===0?'featured-item featured-item-large':index===1?'featured-item featured-item-small-first':'featured-item featured-item-small'}>
                   <div className="featured-item__content">
                     <h3>{it?.title}</h3>
-                    <a href="#" className="btn btn--rounded">Show Collection</a>
+                    <a href="#" className="btn btn--rounded">Xem bài viết</a>
                   </div>
                 </article>
               </>
@@ -102,40 +102,39 @@ const IndexPage = () => {
       <section className="section">
         <div className="container">
           <header className="section__intro">
-            <h4>Why should you choose us?</h4>
+            <h4>Lý do nên lựa chọn chúng tôi?</h4>
           </header>
 
           <ul className="shop-data-items">
             <li>
               <i className="icon-shipping"></i>
               <div className="data-item__content">
-                <h4>Free Shipping</h4>
-                <p>All purchases over $199 are eligible for free shipping via USPS First Class Mail.</p>
+                <h4>Miễn phí vận chuyển</h4>
+                <p>Mọi đơn hàng có giá trị trên 1,000,000 đều được hoàn toàn miễn phí vận chuyển</p>
               </div>
             </li>
 
             <li>
               <i className="icon-payment"></i>
               <div className="data-item__content">
-                <h4>Easy Payments</h4>
-                <p>All payments are processed instantly over a secure payment protocol.</p>
+                <h4>Dễ dàng thanh toan</h4>
+                <p>Hình thức thanh toán rất đa dạng phù hợp với tất cả người dùng</p>
               </div>
             </li>
 
             <li>
               <i className="icon-cash"></i>
               <div className="data-item__content">
-                <h4>Money-Back Guarantee</h4>
-                <p>If an item arrived damaged or you've changed your mind, you can send it
-                  back for a full refund.</p>
+                <h4>Hoàn tiền</h4>
+                <p>Nếu mặt hàng bị hư hỏng hoặc có lỗi từ bên phía sản xuất, đơn hàng sẽ được hoàn lại 100% giá trị</p>
               </div>
             </li>
 
             <li>
               <i className="icon-materials"></i>
               <div className="data-item__content">
-                <h4>Finest Quality</h4>
-                <p>Designed to last, each of our products has been crafted with the finest materials.</p>
+                <h4>Chất lượng tốt nhất</h4>
+                <p>Mỗi sản phẩm đều được thiết kế một cách thủ công và tinh xảo nhất</p>
               </div>
             </li>
           </ul>

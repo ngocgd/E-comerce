@@ -10,7 +10,7 @@ type LayoutType = {
   children?: React.ReactNode;
 }
 
-export default ({ children, title = 'Betaa Shop' }: LayoutType) => {
+export default ({ children, title = 'Tedaa Shop' }: LayoutType) => {
   const router = useRouter();
   const pathname = router.pathname;
   const dataSpin = useSelector((state: RootState) => state.homeReducer.spin);

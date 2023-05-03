@@ -89,9 +89,9 @@ const Contact = () => {
             <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">
               <div className="u-align-center u-form u-radius-50 u-white u-form-1">
                 <form onSubmit={handleSubmit(onSubmit)} className="u-clearfix u-form-spacing-25 u-form-vertical u-inner-form" name="form" style={{ padding: '30px' }}>
-                  <h3 className="u-align-center u-custom-font u-font-ubuntu u-form-group u-form-text u-label-top u-text u-text-1"> Contact Us</h3>
+                  <h3 className="u-align-center u-custom-font u-font-ubuntu u-form-group u-form-text u-label-top u-text u-text-1"> Liên hệ</h3>
                   <div className="u-form-group u-form-name u-form-partition-factor-2 u-label-top">
-                    <label htmlFor="name-66b3" className="u-label">Name</label>
+                    <label htmlFor="name-66b3" className="u-label">Tên</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
                       placeholder="Name"
@@ -132,7 +132,7 @@ const Contact = () => {
 
                   </div>
                   <div className="u-form-group u-form-name u-form-partition-factor-2 u-label-top">
-                    <label htmlFor="name-66b3" className="u-label">Phone</label>
+                    <label htmlFor="name-66b3" className="u-label">Số điện thoại</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
                       placeholder="Phone"
@@ -152,7 +152,7 @@ const Contact = () => {
                     }
                   </div>
                   <div className="u-form-group u-form-name u-form-partition-factor-2 u-label-top">
-                    <label htmlFor="name-66b3" className="u-label">Address</label>
+                    <label htmlFor="name-66b3" className="u-label">Địa chỉ</label>
                     <input
                       className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20"
                       placeholder="Adress"
@@ -180,20 +180,20 @@ const Contact = () => {
                     <p className="message message--error">This field is required</p>
                   }
                   <div className="u-form-group u-form-message u-label-top">
-                    <label htmlFor="message-66b3" className="u-label">Message</label>
+                    <label htmlFor="message-66b3" className="u-label">Tin nhắn</label>
                     <textarea placeholder="Enter your message" value={textArea} onChange={setValueArea} rows={4} cols={50} id="message-66b3" name="message" className="u-border-none u-grey-5 u-input u-input-rectangle u-radius-20" required defaultValue={""} />
                   </div>
                   <div className="u-align-center u-form-group u-form-submit u-label-top">
-                    <button type="submit" className="u-border-none u-btn u-btn-submit u-button-style u-palette-4-base u-radius-20 u-btn-1">Submit</button>
+                    <button type="submit" className="u-border-none u-btn u-btn-submit u-button-style u-palette-4-base u-radius-20 u-btn-1">Gửi</button>
                   </div>
                 </form>
               </div>
             </div>
           </section>
           <footer className="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-686b"><div className="u-clearfix u-sheet u-sheet-1">
-            <p className="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the Text Element.</p>
+            {/* <p className="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the Text Element.</p> */}
           </div></footer>
-          <section className="u-backlink u-clearfix u-grey-80">
+          {/* <section className="u-backlink u-clearfix u-grey-80">
             <a className="u-link" href="https://nicepage.com/website-templates" target="_blank">
               <span>Web Templates</span>
             </a>
@@ -203,7 +203,7 @@ const Contact = () => {
             <a className="u-link" href="https://nicepage.me" target="_blank">
               <span>Best Website Builder</span>
             </a>.
-          </section>
+          </section> */}
         </div>
       </section>
       <Footer />

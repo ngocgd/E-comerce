@@ -60,7 +60,7 @@ const Punctuation = ({ votes, punctuation, countOpinions,product }: PunctuationT
       <div className="product-punctuation__values">
         <h3>{punctuation?(punctuation).toFixed(2):0}</h3>
         <Rater total={5} interactive={false} rating={punctuation} />
-        <p><i className="icon-avatar"></i>{countOpinions} all opinions</p>
+        <p><i className="icon-avatar"></i>{countOpinions} người nhận xét</p>
       </div>
       
       <div className="product-punctuation__rates">
