@@ -78,7 +78,7 @@ const Punctuation = ({ votes, punctuation, countOpinions,product }: PunctuationT
       </div>
 
       {dataInfo.dataUser && <div className="punctuation-btn-wrapper">
-        <button type="button" className="btn btn--rounded btn--yellow" onClick={()=>changeOpinion(!addOpinion)}>Add opinion</button>
+        <button type="button" className="btn btn--rounded btn--yellow" onClick={()=>changeOpinion(!addOpinion)}>Thêm bình luận</button>
       </div>}
       <div>
       {dataInfo.dataUser && addOpinion === true && [...Array(5)].map((star, index) => {

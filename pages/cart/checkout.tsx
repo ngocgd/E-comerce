@@ -86,7 +86,7 @@ const CheckoutPage = () => {
                     <div className="form__col">
                     <input
                       className="form__input form__input--sm"
-                      placeholder="Name"
+                      placeholder="Tên gọi ( biệt danh )"
                       type="text"
                       name="name"
                       ref={register({
@@ -99,7 +99,7 @@ const CheckoutPage = () => {
                     <div className="form__col">
                     <input
                       className="form__input form__input--sm"
-                      placeholder="Address"
+                      placeholder="Địa chỉ chi tiết"
                       type="text"
                       name="address"
                       ref={register({
@@ -114,7 +114,7 @@ const CheckoutPage = () => {
                     <div className="form__col">
                     <input
                       className="form__input form__input--sm"
-                      placeholder="First name"
+                      placeholder="Họ"
                       type="text"
                       name="first_name"
                       ref={register({
@@ -127,7 +127,7 @@ const CheckoutPage = () => {
                     <div className="form__col">
                     <input
                       className="form__input form__input--sm"
-                      placeholder="City"
+                      placeholder="Thành phố"
                       type="text"
                       name="city"
                       ref={register({
@@ -142,7 +142,7 @@ const CheckoutPage = () => {
                     <div className="form__col">
                     <input
                       className="form__input form__input--sm"
-                      placeholder="Last name"
+                      placeholder="Tên"
                       type="text"
                       name="last_name"
                       ref={register({
@@ -152,7 +152,7 @@ const CheckoutPage = () => {
                     />
                     </div>
                     <div className="form__col">
-                      <input className="form__input form__input--sm" type="text" placeholder="Phone number" />
+                      <input className="form__input form__input--sm" type="text" placeholder="Số điện thoại" />
                     </div>
                   </div>
                 </form>
